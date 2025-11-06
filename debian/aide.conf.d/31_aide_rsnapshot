@@ -1,0 +1,7 @@
+# logrotate, monthly, rotate 6, compress, missingok
+@@define RSNAPSHOT_LOG rsnapshot\\.log
+ /var/log/@@{RSNAPSHOT_LOG}$ f                          ActLog
+ /var/log/@@{RSNAPSHOT_LOG}\\.1\\.@@{LOGEXT}$ f         CompSerLog
+ /var/log/@@{RSNAPSHOT_LOG}\\.[2-5]\\.@@{LOGEXT}$ f     MidlSerLog
+ /var/log/@@{RSNAPSHOT_LOG}\\.6\\.@@{LOGEXT}$ f         LastSerLog
+@@undef RSNAPSHOT_LOG

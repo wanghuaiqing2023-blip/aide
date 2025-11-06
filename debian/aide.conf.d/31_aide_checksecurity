@@ -1,0 +1,9 @@
+# logrotate, weekly, rotate 10, compress, create, missingok, notifempty
+@@define CSEC_LOGS (checksecurity\\.log|diskfree\\.log|setuid\\.changes|socket\\.changes)
+ /var/log/setuid/@@{CSEC_LOGS}$ f              ActLog
+ /var/log/setuid/@@{CSEC_LOGS}\\.1$ f          CompSerLog
+ /var/log/setuid/@@{CSEC_LOGS}\\.[2-9]$ f      MidlSerLog
+ /var/log/setuid/@@{CSEC_LOGS}\\.10$ f         LastSerLog
+ /var/log/setuid/setuid.(today|yesterday)$ f   VarFile
+ /var/log/setuid$ d VarDir
+@@undef CSEC_LOGS

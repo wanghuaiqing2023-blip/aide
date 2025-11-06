@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# this defines regexps for LVM variables that do not need root
+# the 10_aide_lvm_needsroot is executed as root from a different
+# timer with root privileges and writes another snippet that overwrites
+# those variables with real data from the system
+
+CACHE_FILE="/var/lib/aide/10_aide_rootrules_cache"
+MAX_AGE_HOURS=6
+if [ -f "${CACHE_FILE}" ]; then
+    NOW=$(date +%s)
+    MOD_TIME="$(stat --format %Y "${CACHE_FILE}")"
+
+    AGE=$(( (NOW - MOD_TIME) / 3600 ))
+
+    if [ "$AGE" -le "$MAX_AGE_HOURS" ]; then
+        # File is not older than 6 hours
+        cat "${CACHE_FILE}"
+    else
+        printf "# Cache File %s is older than %s hours, silently ignored\n" "${CACHE_FILE}" "${MAX_AGE_HOURS}"
+    fi
+    printf "!%s$ f\\n" "${CACHE_FILE}"
+else
+    printf "# Cache File %s does not exist, silently ignored\n" "${CACHE_FILE}"
+fi
+
+# vim:tabstop=4:expandtab:shiftwidth=4

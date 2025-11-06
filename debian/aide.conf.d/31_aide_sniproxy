@@ -1,0 +1,13 @@
+# the package has 90 days specified, see #1058757
+# this is still old log handling and must be changed after trixie
+# logrotate
+@@define SNIPROXY_LOGDIR var/log/sniproxy
+@@define SNIPROXY_LOG @@{SNIPROXY_LOGDIR}/https?_access\\.log
+ /@@{SNIPROXY_LOGDIR}$ d VarDir
+ /@@{SNIPROXY_LOG}$ f                             FreqRotLog
+ /@@{SNIPROXY_LOG}\\.1$ f                         LowLog
+ /@@{SNIPROXY_LOG}\\.2\\.@@{LOGEXT}$ f            LoSerMemberLog
+ /@@{SNIPROXY_LOG}\\.[345678]\\.@@{LOGEXT}$ f     SerMemberLog
+ /@@{SNIPROXY_LOG}\\.9\\.@@{LOGEXT}$ f            HiSerMemberLog
+@@undef SNIPROXY_LOG
+@@undef SNIPROXY_LOGDIR

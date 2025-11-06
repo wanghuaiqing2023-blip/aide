@@ -1,0 +1,40 @@
+@@define VCI var/cache/icinga2
+@@define VLII var/lib/icinga2
+@@define VLOI var/log/icinga2
+# redefine or insert your own system's uuid for a better rule
+@@if not defined ICINGA2_UUID
+@@define ICINGA2_UUID @@{RELAXEDUUID}
+@@endif
+@@if not defined ICINGA2_HOSTNAMERE
+@@define ICINGA2_HOSTNAMERE ([[:alpha:]][-_\.[:alnum:]]*)
+@@endif
+
+ /@@{VCI}$ d VarDir
+ /@@{VCI}/(api-state\\.json|icinga2\\.(debug|vars)|objects\\.cache|status\\.dat)$ f VarFile
+ /@@{VLII}(/api/log)?$ d VarDir
+ /@@{VLII}/api/log/current$ f VarFile
+ /@@{VLII}/(icinga2\\.state|modified-attributes\\.conf)$ f VarFile
+ /@@{VLII}/api/packages/_api/@@{ICINGA2_UUID}/conf\\.d/(comments|downtimes)$ d VarDir
+!/@@{VLII}/api/packages/_api/@@{ICINGA2_UUID}/conf\\.d/comments/@@{ICINGA2_HOSTNAMERE}![[:alnum:][:space:].]+!@@{STRICTUUID}\\.conf$ f
+ /@@{VLOI}$ d LogDir
+
+
+@@define IC2_LOG icinga2\\.log
+# there might also be a debug log and an error.log
+# icinga2.log, debug.log:
+# logrotate, daily, rotate 7, compress, delaycompress, missingok, notifempty
+# error.log:
+# logrotate, daily, rotate 90, compress, delaycompress, missingok, notifempty
+ /@@{VLOI}/@@{IC2_LOG}$ f                            ActLog
+ /@@{VLOI}/@@{IC2_LOG}\\.1$ f                        RotLog
+ /@@{VLOI}/@@{IC2_LOG}\\.2\\.@@{LOGEXT}$ f           CompSerLog
+ /@@{VLOI}/@@{IC2_LOG}\\.[3456]\\.@@{LOGEXT}$ f      MidlSerLog
+ /@@{VLOI}/@@{IC2_LOG}\\.7\\.@@{LOGEXT}$ f           LastSerLog
+@@undef IC2_LOG
+!/tmp/FileCache_icingaweb(/htmlpurifier\\.cache)?$ d
+!/tmp/FileCache_icingaweb/icinga-[[:xdigit:]]{8}-[[:xdigit:]]{8}-[[:xdigit:]]{8}\\.min\\.(css|js)$ f
+
+/@@{RUN}/icinga2(/cmd)?$ d RecreatedDir
+/@@{RUN}/icinga2/icing2\\.pid?$ f VarFile
+!/@@{RUN}/icinga2/cmd/icinga2\\.cmd$ p
+

@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# the code in this file will define a number of macros to match
+# the dates of today, yesterday (YESTR) and the day before yesterday (DBFYS)
+# in various formats
+# If you need other formats, please file a bug against aide-common
+
+FORMATS="%Y%m%d %y%m%d %Y-%m-%d %y-%m-%d"
+DATES="now 1_day_ago 2_days_ago"
+
+while read -r var format dt; do
+    printf "@@define DATE_%s %s\\n" "${var}" "$(date +"${format}" --date="${dt}")"
+done <<EOLIST
+YYYYMMDDTODAY %Y%m%d now
+YYYYMMDDYESTR %Y%m%d 1 day ago
+YYYYMMDDDBFYS %Y%m%d 2 days ago
+YYMMDDTODAY %y%m%d now
+YYMMDDYESTR %y%m%d 1 day ago
+YYMMDDDBFYS %y%m%d 2 days ago
+DASHED_YYYYMMDDTODAY %Y-%m-%d now
+DASHED_YYYYMMDDYESTR %Y-%m-%d 1 day ago
+DASHED_YYYYMMDDDBFYS %Y-%m-%d 2 days ago
+DASHED_YYMMDDTODAY %y-%m-%d now
+DASHED_YYMMDDYESTR %y-%m-%d 1 day ago
+DASHED_YYMMDDDBFYS %y-%m-%d 2 days ago
+USCORED_YYYYMMDDTODAY %Y_%m_%d now
+USCORED_YYYYMMDDYESTR %Y_%m_%d 1 day ago
+USCORED_YYYYMMDDDBFYS %Y_%m_%d 2 days ago
+USCORED_YYMMDDTODAY %y_%m_%d now
+USCORED_YYMMDDYESTR %y_%m_%d 1 day ago
+USCORED_YYMMDDDBFYS %y_%m_%d 2 days ago
+EOLIST

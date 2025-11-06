@@ -1,0 +1,6 @@
+
+@@define RUNNETWD @@{RUN}/systemd
+ /@@{RUNNETWD}/network$ d RecreatedDir
+!/@@{RUNNETWD}/netif(/(leases|links|lldp))?$ d
+!/@@{RUNNETWD}/netif/(leases|links|lldp)/[[:digit:]]{1,2}$ f
+!/@@{RUNNETWD}/netif/state$ f

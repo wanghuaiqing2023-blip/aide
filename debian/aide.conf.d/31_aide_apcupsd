@@ -1,0 +1,4 @@
+# old log structure
+ /var/log/apcupsd\\.events$ f ActLog
+ /@@{RUN}/apcupsd\\.pid$ f VarFile
+ /@@{RUNLOCK}/LCK\\.\\.$ f VarFile

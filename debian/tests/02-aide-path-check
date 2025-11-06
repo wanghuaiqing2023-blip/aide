@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+PATH=/bin:/usr/bin
+test "$(aide --config /etc/aide/aide.conf --log-level=error --path-check f=proc:/proc/cpuinfo || true)" = "[ ] f=proc:/proc/cpuinfo: parent directory '/proc' matches non-recursive negative rule: '-/proc$ (none)' (/etc/aide/aide.conf.d/70_aide_proc_sys:5: '-/proc$ 0')"
+

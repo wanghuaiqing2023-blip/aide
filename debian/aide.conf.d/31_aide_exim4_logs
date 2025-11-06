@@ -1,0 +1,17 @@
+# if your host frequently produces paniclog entries (this happens if
+# spam or virus scanners are in use), set
+# @@define EXIM4_LOGS10R (main|reject|panic)
+
+# logrotate, daily, rotate 10, compress, delaycompress, missingok, notifempty
+@@if not defined EXIM4_LOGS10R
+@@define EXIM4_LOGPATH var/log/exim4
+@@define EXIM4_LOGS10R (main|reject)log
+@@endif
+/@@{EXIM4_LOGPATH}/@@{EXIM4_LOGS10R}$ f                      ActLog
+/@@{EXIM4_LOGPATH}/@@{EXIM4_LOGS10R}\\.1$ f                  RotLog
+/@@{EXIM4_LOGPATH}/@@{EXIM4_LOGS10R}\\.2\\.@@{LOGEXT}$ f     CompSerLog
+/@@{EXIM4_LOGPATH}/@@{EXIM4_LOGS10R}\\.[3-9]\\.@@{LOGEXT}$ f MidlSerLog
+/@@{EXIM4_LOGPATH}/@@{EXIM4_LOGS10R}\\.10\\.@@{LOGEXT}$ f    LastSerLog
+/@@{EXIM4_LOGPATH}$ d VarDir
+@@undef EXIM4_LOGPATH
+@@undef EXIM4_LOGS10R

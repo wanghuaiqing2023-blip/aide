@@ -1,0 +1,6 @@
+#!/bin/bash
+
+printf "@@define UBOOTID %s\\n" "$(systemd-id128 --uuid boot-id)"
+printf "@@define XBOOTID %s\\n" "$(systemd-id128 boot-id)"
+
+

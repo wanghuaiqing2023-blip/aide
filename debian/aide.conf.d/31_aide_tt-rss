@@ -1,0 +1,10 @@
+ /var/lib/tt-rss/update_daemon.(stamp|lock)$ f VarFile
+ /var/lib/tt-rss$ d VarDirTime
+
+# logrotate, daily, rotate 7, compress, missingok, notifempty
+@@define TTRSS_LOG tt-rss\\.log
+ /var/log/@@{TTRSS_LOG}$ f ActLog
+ /var/log/@@{TTRSS_LOG}\\.1\\.@@{LOGEXT}$ f         CompSerLog
+ /var/log/@@{TTRSS_LOG}\\.[2-6]\\.@@{LOGEXT}$ f     MidlSerLog
+ /var/log/@@{TTRSS_LOG}\\.7\\.@@{LOGEXT}$ f         LastSerLog
+@@undef TTRSS_LOG

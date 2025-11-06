@@ -1,0 +1,18 @@
+
+# CURY matches years 2023 up to 2030
+@@if not defined YYYY_CURY
+@@define YYYY_CURY                202[3-9]|2030
+@@endif
+@@define DATE_YYYY_MM_DD_CURY     @@{YYYY_CURY}-@@{DATE_MM_DD}
+@@define DATE_YYYYMMDD_CURY       @@{YYYY_CURY}@@{DATE_MMDD}
+@@define DATE_DDMMYYYY_CURY       @@{DATE_DDMM}@@{YYYY_CURY}
+@@define DATE_MMDDYYYY_CURY       @@{DATE_MMDD}@@{YYYY_CURY}
+@@define DATETIME_ISO8601_CURY    @@{YYYY_CURY}-@@{DATE_MM_DD}T@@{TIME_0_23}:@@{TIME_0_60}:@@{TIME_0_60}(Z|[+-]@@{TIME_0_23}:@@{TIME_0_60})
+@@define DATETIME_COMPACT_CURY    @@{YYYY_CURY}@@{DATE_MMDD}T@@{TIME_0_23}@@{TIME_0_60}@@{TIME_0_60}
+@@define DATETIME_SPACE_CURY      @@{YYYY_CURY}-@@{DATE_MM_DD}[[:space:]]@@{TIME_0_23}:@@{TIME_0_60}(:@@{TIME_0_60})?
+
+# UNIX_TS_CURY matches from 2022-12-25T20:26:40 to 2031-01-01T02:13:19
+# if you still use this after 2030, feel free to adapt those values
+@@if not defined UNIX_TS_CURY
+@@define UNIX_TS_CURY             (1672(0\d{6}|[1-9]\d{6})|167[3-9]\d{7}|16[8-9]\d{7}|17\d{8}|18\d{8}|19(0\d{8}|1\d{8}|2([0-3]\d{7}|4([0-8]\d{6}|9([0-8]\d{5}|9(9{4}))))))
+@@endif

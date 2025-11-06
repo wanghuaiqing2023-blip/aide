@@ -1,0 +1,23 @@
+/var/lib/redis$ d VarDir
+/var/lib/redis/dump\\.rdb$ f VarFile
+
+@@if not defined REDIS_DATADIRRE
+@@define REDIS_DATADIRRE redis
+@@endif
+@@if not defined REDIS_LOGDIR
+@@define REDIS_LOGDIR var/log/redis
+@@endif
+@@if not defined REDIS_LOGFILERE
+@@define REDIS_LOGFILERE redis-server\\.log
+@@endif
+/@@{REDIS_LOGDIR}$ d VarDir
+/@@{REDIS_LOGDIR}/@@{REDIS_LOGFILERE}$ f ActLog
+/@@{REDIS_LOGDIR}/@@{REDIS_LOGFILERE}\\.1$ f RotLog
+/@@{REDIS_LOGDIR}/@@{REDIS_LOGFILERE}\\.2\\.@@{LOGEXT}$ f CompSerLog
+/@@{REDIS_LOGDIR}/@@{REDIS_LOGFILERE}\\.(1[01]|[3456789])\\.@@{LOGEXT}$ f MidlSerLog
+/@@{REDIS_LOGDIR}/@@{REDIS_LOGFILERE}\\.12\\.@@{LOGEXT}$ f LastSerLog
+/var/lib/@@{REDIS_DATADIRRE}$ d VarDir
+/var/lib/@@{REDIS_DATADIRRE}/dump\\.rdb$ f VarFile
+@@undef REDIS_LOGDIR
+@@undef REDIS_LOGFILERE
+@@undef REDIS_DATADIRRE

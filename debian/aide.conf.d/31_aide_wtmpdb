@@ -1,0 +1,2 @@
+ /var/lib/wtmpdb$ d VarDir
+ /var/lib/wtmpdb/wtmp\\.db$ f VarFile

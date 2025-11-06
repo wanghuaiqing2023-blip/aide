@@ -1,0 +1,5 @@
+ /@@{RUN}/sshd\\.pid$ f VarFile
+ /@@{RUN}/ssh-unix-local$ d RecreatedDir
+!/@@{RUN}/sshd$ d
+!/@@{RUN}/ssh-unix-local/socket$ s
+ /@@{RUN}/systemd/generator/sshd-(unix-local|vsock)\\.socket$ f VarFile

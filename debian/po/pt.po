@@ -1,0 +1,93 @@
+# Translation of aide debconf messages to European Portuguese
+# This file is distributed under the same license as the aide package
+# 
+# Marco Ferra <mferra@sdf.lonestar.org>, 2005 (initial translation)
+# Miguel Figueiredo <elmig@debianpt.org, 2021
+# Américo Monteiro <a_monteiro@gmx.com>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: aide 0.19-2\n"
+"Report-Msgid-Bugs-To: aide@packages.debian.org\n"
+"POT-Creation-Date: 2013-06-09 22:00+0200\n"
+"PO-Revision-Date: 2025-06-07 19:42+0100\n"
+"Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
+"Language-Team: Portuguese <>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.12.3\n"
+
+#. Type: boolean
+#. Description
+#: ../aide-common.templates:1001
+#| msgid "Initialize aide database?"
+msgid "Initialize AIDE database?"
+msgstr "Inicializar a base de dados do AIDE?"
+
+#. Type: boolean
+#. Description
+#: ../aide-common.templates:1001
+msgid ""
+"Before AIDE can be used, you will have to initialize a database. You can "
+"immediately do this here, or run the '/usr/sbin/aideinit' script from a "
+"shell later."
+msgstr ""
+"Antes do AIDE poder ser usado, você tem de inicializar a base de dados. "
+"Você pode fazer isso agora aqui imediatamente, ou correr o script "
+"'/usr/sbin/aideinit' mais tarde a partir duma linha de comandos."
+
+#. Type: boolean
+#. Description
+#: ../aide-common.templates:2001
+msgid "Overwrite existing /var/lib/aide/aide.db.new?"
+msgstr "Sobrescrever o /var/lib/aide/aide.db.new existente?"
+
+#. Type: boolean
+#. Description
+#: ../aide-common.templates:2001
+msgid ""
+"You have already a newly generated AIDE database in /var/lib/aide/aide.db."
+"new. If you choose this option, the existing file will be be overwritten by "
+"the new data obtained from the current state of your file system."
+msgstr ""
+"Você já tem uma base de dados AIDE gerada recentemente em /var/lib/aide/"
+"aide.db.new. Se você escolher esta opção, o ficheiro existente irá ser "
+"sobrescrito pelos novos dados obtidos a partir do estado actual do seu "
+"sistema de ficheiros."
+
+#. Type: boolean
+#. Description
+#: ../aide-common.templates:3001
+msgid "Copy aide.db.new to aide.db?"
+msgstr "Copiar o aide.db.new para aide.db?"
+
+#. Type: boolean
+#. Description
+#: ../aide-common.templates:3001
+#| msgid ""
+#| "It is advisable for you to first look over /var/lib/aide/aide.db.new file "
+#| "before replacing the existing db. Would you like to replace it anyway?"
+msgid ""
+"It is advisable for you to first look over /var/lib/aide/aide.db.new file "
+"before replacing the existing db. You can have the package replace the "
+"database anyway here."
+msgstr ""
+"É aconselhável que veja primeiro o ficheiro /var/lib/aide/aide.db.new antes "
+"de substituir a base de dados existente. De qualquer maneira você pode "
+"fazer o pacote substituir a base de dados aqui."
+
+#. Type: boolean
+#. Description
+#: ../aide-common.templates:3001
+#| msgid ""
+#| "You will need to copy the file /var/lib/aide/aide.db.new to /var/lib/aide/"
+#| "aide.db before aide can use it."
+msgid ""
+"If you do not choose this option, you will need to copy the file /var/lib/"
+"aide/aide.db.new to /var/lib/aide/aide.db before AIDE can use it."
+msgstr ""
+"Se você não escolher esta opção, irá precisar de copiar o ficheiro "
+"/var/lib/aide/aide.db.new para /var/lib/aide/aide.db antes do AIDE o "
+"poder usar."

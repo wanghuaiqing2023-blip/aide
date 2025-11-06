@@ -1,0 +1,3 @@
+/@@{RUN}/network$ d RecreatedDir
+/@@{RUN}/network/ifstate(\\.(e[a-z0-9]*|lo))?$ f VarInode
+/@@{RUN}/network/.ifstate\\.lock$ f VarInode

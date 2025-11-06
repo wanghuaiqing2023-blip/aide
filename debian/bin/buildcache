@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Copyright (C) 2025 Marc Haber
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+set -e
+set -C
+
+# this helper program gets run (as root) before the less privileged
+# dailyaidecheck gets started. It currently just calls one executable rule
+# to generate a cache file containing LVM run time data that cannot
+# be obtained as non-root.
+#
+# If this construct is needed more often, this helper should be extended
+# to iterate over all executable files that end in _needsroot.
+
+#!/bin/sh
+
+DIR="/var/lib/aide"
+mkdir -p "$DIR"
+TEMPFILE=$(mktemp "$DIR/tmp.XXXXXX")
+CACHEFILE="$DIR/10_aide_rootrules_cache"
+
+NOW="$(date --iso-8601=seconds)"
+SCRIPT="/etc/aide/aide.conf.d/10_aide_lvm_needsroot"
+
+printf >> "${TEMPFILE}" "# output from %s on %s at %s:\n" "${SCRIPT}" "$(hostname --fqdn)" "${NOW}"
+>> "${TEMPFILE}" "${SCRIPT}"
+
+if [ ! -f "${CACHEFILE}" ] || ! cmp -s "${TEMPFILE}" "${CACHEFILE}"; then
+    mv "${TEMPFILE}" "${CACHEFILE}"
+fi
+rm -f "${TEMPFILE}"
+
+# vim: tabstop=4 shiftwidth=4 expandtab
+# end of file

@@ -1,0 +1,16 @@
+ /var/lib/cron-apt/_-_etc_-_cron-apt_-_config/mailchanges/(0-update-|3-download-)@@{MD5SUM}$ f VarFile
+!/var/lib/cron-apt/lockfile$ f
+ /var/lib/cron-apt$ d VarDir
+!/tmp/cron-apt\\.[[:alnum:]]{6}$ d
+!/tmp/cron-apt\\.[[:alnum:]]{6}/((action|run)(error|log|mail|syslog)|initlog|temp)$ f
+ /var/log/cron-apt/log$ f                          FreqRotLog
+ /var/log/cron-apt/log\\.1\\.@@{LOGEXT}$ f         CompSerLog
+ /var/log/cron-apt/log\\.[23]\\.@@{LOGEXT}$ f      MidlSerLog
+ /var/log/cron-apt/log\\.4\\.@@{LOGEXT}$ f         LastSerLog
+ /var/log/cron-apt$ d VarDir
+!/var/log/cron-apt/lastfullmessage$ f
+
+@@if defined CRON_APT_EXTRACONFIGS
+ /var/lib/cron-apt/_-_etc_-_cron-apt_-_config@@{CRON_APT_EXTRACONFIGS}/mailchanges/(0-update-|3-download-)@@{MD5SUM}$ f VarFile
+@@endif
+

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+UID_BLACKLIST="0 65534"
+USER_BLACKLIST="nobody"
+
+if [ -x "$UPAC_settingsd/10_aide_usersuids" ]; then
+  #shellcheck disable=SC1090
+  . "$UPAC_settingsd/10_aide_usersuids"
+fi
+
+blacklistfilter() {
+  BLACKLIST="$(echo "$@" | tr ' ' '\n')"
+  grep --invert-match --word-regexp --fixed-strings "${BLACKLIST}"
+}
+
+printf "@@define LOCALUIDS (%s)\n" "$(\
+  awk -F: '{print $3}' /etc/passwd | 
+  sort --numeric-sort --unique | \
+  blacklistfilter "${UID_BLACKLIST}" | \
+  paste --serial --delimiters='|' \
+)"
+printf "@@define LOCALUSERS (%s)\n" "$(\
+  awk -F: '{print $1}' /etc/passwd | 
+  sort --unique | \
+  blacklistfilter "${USER_BLACKLIST}" | \
+  paste --serial --delimiters='|' \
+)"
+
+# vim:tabstop=2:expandtab:shiftwidth=2

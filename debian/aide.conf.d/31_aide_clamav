@@ -1,0 +1,14 @@
+# logrotate, created in postinst with variable file name (from debconf)
+# default /var/log/clamav/clamav.log
+# weekly, rotate 12, compress, delaycompress, create, missingok
+# 
+@@define CLAMAV_LOG clamav\\.log
+ /var/log/clamav/@@{CLAMAV_LOG}$ f                                   ActLog
+ /var/log/clamav/@@{CLAMAV_LOG}\\.1$ f                               RotLog
+ /var/log/clamav/@@{CLAMAV_LOG}\\.2\\.@@{LOGEXT}$ f                  CompSerLog
+ /var/log/clamav/@@{CLAMAV_LOG}\\.([3-9]|1[0-1])\\.@@{LOGEXT}$ f     MidlSerLog
+ /var/log/clamav/@@{CLAMAV_LOG}\\.12\\.@@{LOGEXT}$ f                 LastSerLog
+ /@@{RUN}/clamav/clamd\\.(ctl|pid)$ f VarFile
+ /var/log/clamav$ d VarDir
+ /@@{RUN}/clamav$ d RecreatedDir
+@@undef CLAMAV_LOG

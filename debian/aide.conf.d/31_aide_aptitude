@@ -1,0 +1,17 @@
+ /var/lib/systemd/timers/stamp-cron-daily-aptitude\\.timer$ f VarFile
+# /var/log/aptitude: logrotate, rotate 6, monthly, no delaycompress
+ /var/log/aptitude$ f                                    ActLog
+ /var/log/aptitude\\.1\\.@@{LOGEXT}$ f                   CompSerLog
+ /var/log/aptitude\\.[2-5]\\.@@{LOGEXT}$ f               MidlSerLog
+ /var/log/aptitude\\.6\\.@@{LOGEXT}$ f                   LastSerLog
+# /var/backup/aptitude.pkgstates: from /var/lib/aptitude/pkgstates
+# savelog -c 7 in /etc/cron.daily/aptitude
+ /var/backups/aptitude\\.pkgstates\\.0$ f                LowLog
+ /var/backups/aptitude\\.pkgstates\\.1\\.gz$ f           CompSerLog
+ /var/backups/aptitude\\.pkgstates\\.[2345]\\.gz$ f      MidlSerLog
+ /var/backups/aptitude\\.pkgstates\\.6\\.gz$ f           LastSerLog
+ /var/lib/aptitude/pkgstates(\\.old)?$ f VarFile
+ /var/lib/aptitude$ d VarDir
+!/@@{RUNLOCK}/aptitude$ f
+ /root/\\.(aptitude|debtags)$ d VarDir
+ /root/\\.aptitude/config$ f VarFile 

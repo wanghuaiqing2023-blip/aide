@@ -1,0 +1,57 @@
+@@define LIBVIRT_RL @@{RUN}/libvirt
+@@define LIBVIRT_VL var/lib/libvirt
+@@define LIBVIRT_VLQ @@{LIBVIRT_VL}/qemu
+@@define LIBVIRT_LOGPATH var/log/libvirt
+
+ /etc/apparmor\\.d/libvirt$ d VarDir
+ /etc/apparmor\\.d/libvirt/libvirt-@@{STRICTUUID}\\.files$ f VarFile
+
+ /@@{LIBVIRT_VL}(/qemu)?$ d VarDir
+ /@@{LIBVIRT_VLQ}(/(channel(/target)?|checkpoint|dump|(nv)?ram|save|snapshot))?$ d VarDir-n
+@@if defined LIBVIRT_QEMU_GUESTS
+!/@@{LIBVIRT_VLQ}(/channel/target)?/domain-[[:digit:]]+-@@{LIBVIRT_QEMU_GUESTS}$ d
+!/@@{LIBVIRT_VLQ}/domain-[[:digit:]]+-@@{LIBVIRT_QEMU_GUESTS}/master-key\\.aes$ f
+!/@@{LIBVIRT_VLQ}/nvram/@@{LIBVIRT_QEMU_GUESTS}_VARS\\.fd$ f
+!/@@{LIBVIRT_VLQ}(/channel/target)?/domain-[[:digit:]]+-@@{LIBVIRT_QEMU_GUESTS}/(monitor\\.sock|org\\.qemu\\.guest_agent\\.0)$ s
+@@endif
+
+@@if defined LIBVIRT_QEMU_GUESTS
+@@define LIBVIRT_LOGFILERE qemu/@@{LIBVIRT_QEMU_GUESTS}\\.log
+ /@@{LIBVIRT_LOGPATH}$ d                                            LogDir
+ /@@{LIBVIRT_LOGPATH}/@@{LIBVIRT_LOGFILERE}$ f                      ActLog
+ /@@{LIBVIRT_LOGPATH}/@@{LIBVIRT_LOGFILERE}\\.1$ f                  RotLog
+ /@@{LIBVIRT_LOGPATH}/@@{LIBVIRT_LOGFILERE}\\.2\\.@@{LOGEXT}$ f     CompSerLog
+ /@@{LIBVIRT_LOGPATH}/@@{LIBVIRT_LOGFILERE}\\.3\\.@@{LOGEXT}$ f     MidlSerLog
+ /@@{LIBVIRT_LOGPATH}/@@{LIBVIRT_LOGFILERE}\\.4\\.@@{LOGEXT}$ f     LastSerLog
+@@undef LIBVIRT_LOGFILERE
+!/@@{LIBVIRT_RL}/qemu/@@{LIBVIRT_QEMU_GUESTS}\\.(pid|xml)$ f
+!/@@{RUN}/systemd/machines/qemu-[[:digit:]]{1,2}-@@{LIBVIRT_QEMU_GUESTS}$ f
+!/@@{RUN}/systemd/machines/unit:machine-qemu\\\\x2d[[:digit:]]{1,2}\\\\x2d@@{LIBVIRT_QEMU_GUESTS}\\.scope$ l
+!/@@{RUN}/systemd/units/invocation:machine-qemu\\\\x2d[[:digit:]]{1,2}\\\\x2d@@{LIBVIRT_QEMU_GUESTS}\\.scope$ l
+!/@@{RUN}/systemd/transient/machine-qemu\\\\x2d[[:digit:]]{1,2}\\\\x2d@@{LIBVIRT_QEMU_GUESTS}\\.scope$ f
+@@endif
+
+ /@@{RUN}/(libvirtd|virtlogd)\\.pid$ f VarFile
+ /@@{LIBVIRT_RL}/(common|interface|network|nodedev|nwfilter|qemu|secrets|storage)$ d RecreatedDir
+ /@@{LIBVIRT_RL}/(interface|network|nodedev|nwfilter|qemu|secrets|storage)/driver\\.pid$ f VarFile
+ /@@{LIBVIRT_RL}/common/system\\.token$ f VarFile
+ /@@{LIBVIRT_RL}/(network|qemu|storage)/autostarted$ f VarFile
+ /@@{LIBVIRT_RL}(/(network|nwfilter(-binding)?|nodedev|nwfilter|qemu|secrets|storage|uml-guest))?$ d RecreatedDir
+ /@@{LIBVIRT_RL}/(hostdevmgr|lxc|network|storage)$ d RecreatedDir
+ /@@{LIBVIRT_RL}/network/nwfilter\\.leases$ f VarFile
+ /@@{LIBVIRT_RL}/network/br[[:digit:]]{1,3}\\.xml$ f VarFile
+ /@@{LIBVIRT_RL}/(libvirt-(admin-sock|sock(-ro)?)|virt(lock|log)d-sock)$ s VarFile
+ /@@{LIBVIRT_RL}/qemu(/(dbus|passt|slirp))?$ d RecreatedDir
+!/@@{LIBVIRT_RL}/virt(lock|log)d-admin-sock$ s
+@@if defined LIBVIRT_IFACES
+!/@@{LIBVIRT_RL}/network/@@{LIBVIRT_IFACES}(/ports)?$ d
+!/@@{LIBVIRT_RL}/network/@@{LIBVIRT_IFACES}/ports/@@{STRICTUUID}\\.xml$ f
+!/@@{LIBVIRT_RL}/network/@@{LIBVIRT_IFACES}\\.xml$ f
+@@undef LIBVIRT_IFACES
+@@endif
+
+/@@{RUNLOCK}/libvirt-guests$ f RecreatedDir
+@@undef LIBVIRT_RL
+@@undef LIBVIRT_VL
+@@undef LIBVIRT_VLQ
+@@undef LIBVIRT_LOGPATH

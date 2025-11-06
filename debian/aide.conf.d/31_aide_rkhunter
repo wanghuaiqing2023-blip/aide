@@ -1,0 +1,12 @@
+ /var/lib/rkhunter/db/(mirrors|rkhunter_prop_list)\\.dat$ f VarTime
+ /var/lib/rkhunter/tmp/(group|passwd)$ f VarFile
+ /var/lib/rkhunter/(db|tmp)$ d VarDir
+
+# logrotate, weekly, rotate 7, compress, delaycompress, missingok, notifempty
+@@define RKH_LOG rkhunter\\.log
+ /var/log/@@{RKH_LOG}$ f                  ActLog
+ /var/log/@@{RKH_LOG}\\.1$ f              RotLog
+ /var/log/@@{RKH_LOG}\\.2\\.@@{LOGEXT}$ f CompSerLog
+ /var/log/@@{RKH_LOG}\\.3\\.@@{LOGEXT}$ f MidlSerLog
+ /var/log/@@{RKH_LOG}\\.4\\.@@{LOGEXT}$ f LastSerLog
+@@undef RKH_LOG

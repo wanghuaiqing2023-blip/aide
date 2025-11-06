@@ -1,0 +1,19 @@
+@@if defined GIT_ANNEX_ALLOWED_UIDS
+@@if not defined GIT_ANNEX_PATH
+@@define GIT_ANNEX_PATH @@{RUN}/user/@@{GIT_ANNEX_ALLOWED_UIDS}/systemd/generator\\.late
+@@endif
+@@if not defined GIT_ANNEX_DIRNAME
+@@define GIT_ANNEX_DIRNAME xdg-desktop-autostart\\.target\\.wants
+@@endif
+@@if not defined GIT_ANNEX_SERVICENAME
+@@define GIT_ANNEX_SERVICENAME app-git\\\\x2dannex@autostart\\.service
+@@endif
+!/@@{GIT_ANNEX_PATH}/@@{GIT_ANNEX_DIRNAME}/@@{GIT_ANNEX_SERVICENAME}$ l
+!/@@{RUNUSER}/@@{LOCALUIDS}/systemd/generator\\.late/@@{GIT_ANNEX_SERVICENAME}$ f
+@@undef GIT_ANNEX_ALLOWED_UIDS
+
+@@undef GIT_ANNEX_PATH
+@@undef GIT_ANNEX_DIRNAME
+@@undef GIT_ANNEX_SERVICENAME
+@@endif
+

@@ -1,0 +1,9 @@
+# acpid does not seem to log any more. If your acpid still writes
+# log files, please file a bug against aide.
+# /var/log/acpid$ f                  ActLog
+# /var/log/acpid\\.1$ f              RotLog
+# /var/log/acpid\\.2\\.@@{LOGEXT}$ f CompSerLog
+# /var/log/acpid\\.3\\.@@{LOGEXT}$ f MidlSerLog
+# /var/log/acpid\\.4\\.@@{LOGEXT}$ f LastSerLog
+!/@@{RUN}/acpid\\.socket$ s
+ /@@{RUN}/acpid\\.pid$ f VarFile

@@ -1,0 +1,11 @@
+ /var/log/atop$ d RecreatedDir
+!/var/log/atop/atop_@@{YEAR4D}@@{DATE_MMDD}$ f
+ /@@{RUN}/atop$ d RecreatedDir
+ /@@{RUN}/atop/atop\\.acct$ f VarFile
+ /@@{RUN}/pacct_shadow\\.d$ d RecreatedDir
+!/@@{RUN}/pacct_shadow\\.d/[[:digit:]]{10}\\.paf$ f
+ /@@{RUN}/pacct_shadow\\.d/current$ f VarFile
+ /@@{RUN}/pacct_source$ f VarFile
+ /@@{RUN}/atop(acctd)?\\.pid$ f PidFile
+ /var/cache/atop\\.d$ d VarDir
+ /var/cache/atop\\.d/atop\\.acct$ f VarFile

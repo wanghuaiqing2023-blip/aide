@@ -1,0 +1,27 @@
+ /@@{RUN}/samba$ d RecreatedDir
+ /@@{RUN}/samba/(brlock|gencache|smbd_clientupd|leases|locking|mutex|names|printer_list|serverid|smbXsrv_((client|open|session|tcon|version)_global))\\.tdb$ f VarFile
+ /@@{RUN}/samba/(nmbd|smbd|samba-dcerpcd)\\.pid$ f VarFile
+ /@@{RUN}/samba/(msg\\.(lock|sock)|nmbd)$ d RecreatedDir
+!/@@{RUN}/samba/msg\\.lock/[[:digit:]]+$ f
+!/@@{RUN}/samba/msg\\.sock/[[:digit:]]+$ s
+!/@@{RUN}/samba/nmbd/unexpected$ s
+ /@@{RUN}/samba(/ncalrpc(/np)?)?$ d RecreatedDir
+!/@@{RUN}/samba/ncalrpc/np/(epmapper|eventlog|fssagentrpc|initshutdown|lsarpc|lsass|mdssvc|netdfs|ntsvcs|plugplay|samr|spoolss|srvsvc|svcctl|winreg|wkssvc)$ f
+!/@@{RUN}/samba/namelist\\.debug$ f
+ /var/cache/samba$ d VarDir
+ /var/cache/samba/(browse\\.dat|(gencache|smbprofile)\\.tdb)$ f VarFile
+# samba 4.19 and later do their own log rotation
+# this needs to be adapted. Please send a patch if you're using samba in
+# a professional environment
+ /var/log/samba$ d VarDir
+# /var/log/samba/log\\.smbd\\.spoolssd$ f ActLog
+# /var/log/samba/log\\.[sn]mbd$ f ActLog
+# /var/log/samba/log\\.[sn]mbd\\.1$ f RotLog
+# /var/log/samba/log\\.[sn]mbd\\.2.@@{LOGEXT}$ f CompSerLog
+# /var/log/samba/log\\.[sn]mbd\\.[23456]\\.@@{LOGEXT}$ f MidlSerLog
+# /var/log/samba/log\\.[sn]mbd\\.7.@@{LOGEXT}$ f LastSerLog
+# /var/log/samba/log\\.(@@{IP4ADDRESS}|@@{IP6ADDRESSU})$ f ActLog+ANF
+# /var/log/samba/log\\.smbd\\.spoolssd$ f ActLog
+ /var/lib/samba/dhcp\\.conf$ f VarFile
+ /var/lib/samba(/private/msg\\.sock)?$ d VarDir
+!/var/lib/samba/private/msg\\.sock/[[:digit:]]+$ s

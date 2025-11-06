@@ -1,0 +1,7 @@
+/@@{RUN}/openvpn(-(client|server))?$ d RecreatedDir
+@@if defined OPENVPN_CLIENT_INSTANCES
+/@@{RUN}/openvpn/@@{OPENVPN_CLIENT_INSTANCES}\\.(pid|status)$ f VarFile-i
+!/(var/)?tmp/systemd-private-@@{XBOOTID}-openvpn@@@{OPENVPN_CLIENT_INSTANCES}\\.service-[[:alnum:]]{6}$ d
+!/(var/)?tmp/systemd-private-@@{XBOOTID}-openvpn@@@{OPENVPN_CLIENT_INSTANCES}\\.service-[[:alnum:]]{6}/tmp$ d
+@@undef OPENVPN_CLIENT_INSTANCES
+@@endif

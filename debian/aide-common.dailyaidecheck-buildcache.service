@@ -1,0 +1,10 @@
+[Unit]
+Description=build cache for daily AIDE check
+Documentation=file:/usr/share/doc/aide/README.Debian.gz
+StartLimitIntervalSec=60
+StartLimitBurst=1
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/aide/bin/buildcache
+RemainAfterExit=no

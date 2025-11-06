@@ -1,0 +1,6 @@
+#!/bin/bash
+
+printf "@@define UMACHINEID %s\\n" "$(systemd-id128 --uuid machine-id)"
+printf "@@define XMACHINEID %s\\n" "$(systemd-id128 machine-id)"
+
+

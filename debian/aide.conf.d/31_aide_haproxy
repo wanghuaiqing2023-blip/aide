@@ -1,0 +1,8 @@
+# logrotate, daily, rotate 7, compress, delaycompress, missingok, notifempty
+@@define HAPR_LOG haproxy\\.log 
+ /var/log/@@{HAPR_LOG}$ f                             ActLog
+ /var/log/@@{HAPR_LOG}\\.1$ f                         RotLog
+ /var/log/@@{HAPR_LOG}\\.2\\.@@{LOGEXT}$ f            CompSerLog
+ /var/log/@@{HAPR_LOG}\\.[345678]\\.@@{LOGEXT}$ f     MidlSerLog
+ /var/log/@@{HAPR_LOG}\\.9\\.@@{LOGEXT}$ f            LastSerLog
+@@undef HAPR_LOG

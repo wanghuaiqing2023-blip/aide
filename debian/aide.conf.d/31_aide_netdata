@@ -1,0 +1,40 @@
+@@define NETDATA_VC var/cache/netdata
+@@define NETDATA_VL var/lib/netdata
+@@define NETDATA_LOGDIR var/log/netdata
+
+ /@@{NETDATA_VC}$ d VarDir
+!/@@{NETDATA_VC}/\\.netdata_bash_sleep_timer_fifo$ p
+ /@@{NETDATA_VC}/((context|netdata)-meta|ml)\\.db(-shm|-wal)?$ f VarFile
+
+ /@@{NETDATA_VC}/dbengine(-tier[12])?$ d VarDir
+!/@@{NETDATA_VC}/dbengine(-tier[12])?/datafile-1-[[:digit:]]{10}\\.ndf$ f
+!/@@{NETDATA_VC}/dbengine(-tier[12])?/journalfile-1-[[:digit:]]{10}\\.njf(v2)?$ f
+
+ /@@{NETDATA_VC}/[[:alnum:]_.]+$ d VarDir
+!/@@{NETDATA_VC}/[[:alnum:]_.]+/[[:alnum:]_.]+\\.(db|[[:digit:]]+\\.tmp)$ f
+
+ /@@{NETDATA_VL}(/(cloud\\.d|health|lock|registry))?$ d VarDir
+ /@@{NETDATA_VL}/(\\.agent_crash|dbengine_multihost_size|netdata\\.api\\.key)$ f VarFile
+ /@@{NETDATA_VL}/health/health-log\\.db(\\.old)?$ f VarFile
+ /@@{NETDATA_VL}/registry/netdata\\.public\\.unique\\.id$ f VarFile
+
+@@if not defined NETDATA_LOGRE
+@@define NETDATA_LOGRE (access|aclk|debug)\\.log
+ /@@{NETDATA_LOGDIR}$ d                                            LogDir
+ /@@{NETDATA_LOGDIR}/@@{NETDATA_LOGRE}$ f                          ActLog
+ /@@{NETDATA_LOGDIR}/@@{NETDATA_LOGRE}\\.1$ f                      RotLog
+ /@@{NETDATA_LOGDIR}/@@{NETDATA_LOGRE}\\.2\\.@@{LOGEXT}$ f         CompSerLog
+ /@@{NETDATA_LOGDIR}/@@{NETDATA_LOGRE}\\.([3456789]|1[0123])\\.@@{LOGEXT}$ f MidlSerLog
+ /@@{NETDATA_LOGDIR}/@@{NETDATA_LOGRE}\\.14\\.@@{LOGEXT}$ f        LastSerLog
+ /@@{NETDATA_LOGDIR}/health\\.log$ f                               ActLog
+@@undef NETDATA_LOGRE
+@@endif
+@@undef NETDATA_LOGDIR
+
+ /@@{RUN}/netdata$ d RecreatedDir
+!/@@{RUN}/systemd/propagate/netdata\\.service$ d
+!/(var/)?tmp/systemd-private-@@{XBOOTID}-netdata\\.service-[[:alnum:]]{6}/tmp/netdata-ipc$ s
+ /dev/shm/netdata_shm_cgroup_ebpf$ f VarFile
+
+@@undef NETDATA_VC
+@@undef NETDATA_VL

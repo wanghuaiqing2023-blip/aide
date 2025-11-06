@@ -1,0 +1,6 @@
+@@if not defined SSH_AGENT_UIDS
+@@define SSH_AGENT_UIDS @@{LOCALUIDS}
+@@endif
+!/@@{RUNUSER}/@@{SSH_AGENT_UIDS}/openssh_agent$ s
+!/@@{RUNUSER}/@@{SSH_AGENT_UIDS}/systemd/units/invocation:ssh-agent\\.socket$ l
+@@undef SSH_AGENT_UIDS

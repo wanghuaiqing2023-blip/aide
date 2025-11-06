@@ -1,0 +1,18 @@
+# logrotate, created in postinst with variable file name
+# default /var/log/clamav/freshclam.log
+# weekly, rotate 12, compress, delaycompress, create, missingok
+# 
+@@define FRESHCLAM_LOG freshclam\\.log
+ /var/lib/clamav$ d VarDir
+ /var/lib/clamav/(scam|junk)\\.ndb$ f VarFile
+ /var/log/clamav/@@{FRESHCLAM_LOG}$ f                               ActLog
+ /var/log/clamav/@@{FRESHCLAM_LOG}\\.1$ f                           LowLog 
+ /var/log/clamav/@@{FRESHCLAM_LOG}\\.2\\.@@{LOGEXT}$ f              CompSerLog
+ /var/log/clamav/@@{FRESHCLAM_LOG}\\.([3-9]|1[0-1])\\.@@{LOGEXT}$ f MidlSerLog
+ /var/log/clamav/@@{FRESHCLAM_LOG}\\.12\\.@@{LOGEXT}$ f             LastSerLog
+ /var/lib/clamav/(safebrowsing|bytecode)\\.cld$ f VarFile
+ /var/lib/clamav/daily\\.inc/daily\\.(info|[nmhp]db)$ f VarFile
+ /var/lib/clamav/daily\\.cld$ f VarFile
+ /var/lib/clamav/mirrors.dat$ f VarFile
+ /@@{RUN}/clamav/freshclam\\.pid$ f VarFile
+@@undef FRESHCLAM_LOG

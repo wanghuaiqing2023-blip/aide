@@ -1,0 +1,7 @@
+@@if not defined GNUPGUIDS
+@@define GNUPGUIDS @@{LOCALUIDS}
+!/@@{RUNUSER}/@@{GNUPGUIDS}/gnupg$ d
+!/@@{RUNUSER}/@@{GNUPGUIDS}/gnupg(/S.(dirmngr|gpg-agent(\\.(browser|extra|ssh))?|keyboxd|scdaemon))?$ s
+!/@@{RUNUSER}/@@{GNUPGUIDS}/gnupg/d\\.[0-9a-z]{24}$ d
+@@endif
+@@undef GNUPGUIDS

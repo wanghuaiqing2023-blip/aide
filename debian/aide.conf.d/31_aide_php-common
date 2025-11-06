@@ -1,0 +1,13 @@
+/var/lib/systemd/timers/stamp-phpsessionclean\\.timer$ f VarFile
+
+#@@define PHPSESSIONFILERE  sess_(
+#    [0-9a-f]{32} |           # 4 bits/char (hex), length 32
+#    [0-9a-v]{26} |           # 5 bits/char (base32-ish), length 26
+#    [A-Za-z0-9]{22}          # 6 bits/char (base62), length 22 (default)
+#)
+@@define PHPSESSIONFILERE sess_([[:xdigit:]]{32}|[0-9a-v]{26}|@@{BASE62}{22})
+@@define PHPSESSIONDIR var/lib/php/sessions
+ /@@{PHPSESSIONDIR}$ d VarDir
+!/@@{PHPSESSIONDIR}/@@{PHPSESSIONFILERE}$ f
+@@undef PHPSESSIONDIR
+@@undef PHPSESSIONFILERE

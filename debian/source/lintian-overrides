@@ -1,0 +1,7 @@
+# yes, those generated files HAVE conflicting licenses and it is an utter waste of lifetime to list them in debian/copyright
+aide source: duplicate-globbing-patterns aclocal.m4 (*) [debian/copyright]
+aide source: duplicate-globbing-patterns config.guess (*) [debian/copyright]
+aide source: duplicate-globbing-patterns config.sub (*) [debian/copyright]
+aide source: duplicate-globbing-patterns src/report.c (*) [debian/copyright]
+
+

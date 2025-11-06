@@ -1,0 +1,9 @@
+@@if not defined SUDO_ALLOWED_UIDS
+@@define SUDO_ALLOWED_UIDS @@{LOCALUIDS}
+@@endif
+
+@@define SUDO_STATE_DIR @@{RUN}/sudo
+ /@@{SUDO_STATE_DIR}(/ts)?$ d RecreatedDir
+!/@@{SUDO_STATE_DIR}/ts/@@{SUDO_ALLOWED_UIDS}$ f
+@@undef SUDO_STATE_DIR
+@@undef SUDO_ALLOWED_UIDS
