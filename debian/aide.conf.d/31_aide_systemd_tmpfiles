@@ -1,0 +1,6 @@
+# not sure yet whether we need all users here that have services running
+# or whether only shell users
+@@if not defined SYSTEMD_TMPFILES_UIDS
+@@define SYSTEMD_TMPFILES_UIDS (@@{BITS_32_D})
+@@endif
+!/@@{RUN}/user/@@{SYSTEMD_TMPFILES_UIDS}/systemd/units/invocation:systemd-tmpfiles-setup\\.service$ l

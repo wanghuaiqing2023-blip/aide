@@ -1,5 +1,9 @@
  /@@{RUN}/samba$ d RecreatedDir
- /@@{RUN}/samba/(brlock|gencache|smbd_clientupd|leases|locking|mutex|names|printer_list|serverid|smbXsrv_((client|open|session|tcon|version)_global))\\.tdb$ f VarFile
+ /@@{RUN}/samba/(brlock|gencache|smbd_(cleanupd|clientupd)|leases|locking|mutex|names|printer_list|serverid|smbXsrv_((client|open|session|tcon|version)_global))\\.tdb$ f VarFile
+# the next two lines are a possible improvement that can be used to
+# replace the previous line
+#!/@@{RUN}/samba/(smbd_(cleanupd)|mutex)\\.tdb$ f
+# /@@{RUN}/samba/(brlock|gencache|smbd_(clientupd)|leases|locking|names|printer_list|serverid|smbXsrv_((client|open|session|tcon|version)_global))\\.tdb$ f VarFile
  /@@{RUN}/samba/(nmbd|smbd|samba-dcerpcd)\\.pid$ f VarFile
  /@@{RUN}/samba/(msg\\.(lock|sock)|nmbd)$ d RecreatedDir
 !/@@{RUN}/samba/msg\\.lock/[[:digit:]]+$ f

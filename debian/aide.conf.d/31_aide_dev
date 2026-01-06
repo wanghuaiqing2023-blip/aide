@@ -10,7 +10,7 @@
 !/dev/bsg/[[:digit:]]:0:0:0$ c
  /dev/bus/usb/00[1234]$ d RecreatedDir
 !/dev/bus/usb/00[1234]/0[01][[:digit:]]$ c
-!/dev/disk/by-diskseq/[[:digit:]]{1,2}$ l
+!/dev/disk/by-diskseq/[[:digit:]]{1,2}(-part[[:digit:]])?$ l
  /dev/disk/by-id$ d RecreatedDir
 !/dev/disk/by-id/((ata|dm-name)[-[:alnum:]_]+)(-part[1234])?$ l
 !/dev/disk/by-id/((wwn)-0x[[:xdigit:]]{16})(-part[1234])?$ l
@@ -22,7 +22,7 @@
 !/dev/disk/by-path/pci-@@{PCI_ADDRESS}-ata-[[:digit:]](\.0)?(-part[1234])?$ l
 !/dev/disk/by-path/pci-@@{PCI_ADDRESS}-usb-@@{USB_ADDRESS}-(port0|scsi-(0:){3}[0123])$ l
 !/dev/dm-[[:digit:]]{3}$ b
-!/dev/input/by-path/platform-i8042-serio-1-(event-)?mouse$ l
+!/dev/input/by-path/platform-i8042-serio-[01]-(event-)?mouse$ l
 !/dev/loop[[:digit:]]$ b
 !/dev/mapper/[-[:alnum:]_]+$ l
 !/dev/ram[[:digit:]]$ b

@@ -36,7 +36,7 @@
 !/@@{RUNSYSD}/transient/user-[0-9]+\\.slice$ f
  /@@{RUNSYSD}/unit-(private-tmp|root)$ d RecreatedDir
  /@@{RUNSYSD}/units$ d RecreatedDir
-!/@@{RUNSYSD}/units/invocation:(session-c?[0-9]+\\.scope|[-\\\\@:[:alnum:]]+\\.service|([-_[:alnum:]]+|\\\\x2d)+\\.(mount|swap))$ l
+!/@@{RUNSYSD}/units/invocation:(session-c?[0-9]+\\.scope|[-\\\\@:[:alnum:]]+\\.service|([-_.[:alnum:]]+|\\\\x2d)+\\.(mount|swap))$ l
 !/@@{RUNSYSD}/units/invocation:dbus\\.socket$ l
  /@@{RUNSYSD}/userdb$ d RecreatedDir
 !/@@{RUNSYSD}/userdb/io\\.systemd\\.DynamicUser$ s

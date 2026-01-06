@@ -4,6 +4,7 @@
  /@@{MARIADB_DATADIR}/mysql/(global|tables)_priv\\.MAD$ f VarFile
  /@@{MARIADB_DATADIR}/ib(data1|_logfile[01]|tmp1)$ f VarFile
  /@@{MARIADB_DATADIR}/tc\\.log$ f VarFile
+ /@@{MARIADB_DATADIR}/undo00[123]$ f VarFile
  /@@{MARIADB_DATADIR}/aria_log(\\.00000001|_control)$ f VarFile
  /@@{MARIADB_DATADIR}$ d VarDir
 

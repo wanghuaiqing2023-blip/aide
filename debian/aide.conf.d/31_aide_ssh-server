@@ -3,3 +3,7 @@
 !/@@{RUN}/sshd$ d
 !/@@{RUN}/ssh-unix-local/socket$ s
  /@@{RUN}/systemd/generator/sshd-(unix-local|vsock)\\.socket$ f VarFile
+!/@@{RUN}/systemd/units/invocation:sshd-vsock\\.socket$ l
+ /@@{RUN}/issue\\.d$ d RecreatedDir
+ /@@{RUN}/issue\\.d/50-ssh-vsock\\.issue$ f VarFile
+

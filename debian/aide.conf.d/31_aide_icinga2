@@ -34,7 +34,7 @@
 !/tmp/FileCache_icingaweb(/htmlpurifier\\.cache)?$ d
 !/tmp/FileCache_icingaweb/icinga-[[:xdigit:]]{8}-[[:xdigit:]]{8}-[[:xdigit:]]{8}\\.min\\.(css|js)$ f
 
-/@@{RUN}/icinga2(/cmd)?$ d RecreatedDir
-/@@{RUN}/icinga2/icing2\\.pid?$ f VarFile
+ /@@{RUN}/icinga2(/cmd)?$ d RecreatedDir
+ /@@{RUN}/icinga2/icinga2\\.pid?$ f VarFile
 !/@@{RUN}/icinga2/cmd/icinga2\\.cmd$ p
 

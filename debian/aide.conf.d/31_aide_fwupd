@@ -1,7 +1,7 @@
  /var/cache/fwupd$ d VarDir
  /var/cache/fwupd/(devices\\.json|metadata\\.xmlb)$ f VarFile
  /var/lib/fwupd(/(gnupg|metadata(/lvfs)?))?$ d VarDir
- /var/lib/fwupd/metadata/lvfs/metadata\\.xml\\.xz(\\.jcat)?$ f VarFile
+ /var/lib/fwupd/metadata/lvfs/firmware\\.xml\\.zst(\\.jcat)?$ f VarFile
  /var/lib/fwupd/pending\\.db$ f VarFile
  /var/lib/systemd/timers/stamp-fwupd-refresh\\.timer$ f VarFile
 !/@@{RUN}/systemd/propagate/fwupd\\.service$ d

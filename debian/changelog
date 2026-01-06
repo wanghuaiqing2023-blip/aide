@@ -1,3 +1,59 @@
+aide (0.19.1-2+deb13u2) trixie; urgency=medium
+
+  * fix issue with 31_aide_lvm: bin/buildcache was a non-functional script
+    in the original trixie release. This version now runs properly in the
+    non-root daily job: bin/buildcache is now run from a root timer
+  * new rules:
+    * 31_aide_cryptsetup
+    * 31_aide_grub-pc
+    * 31_aide_ksmtuned
+    * 31_aide_radvd
+    * 31_aide_run_systemd_dynamic-uid
+    * 31_aide_systemd_tmpfiles
+    * 31_aide_valkey
+    * 31_aide_xfsprogs
+  * update and improve rules:
+    *  10_aide_bits
+    * 10_aide_dateformats
+    * 10_aide_days
+    * 11_aide_dateformats_cury
+    * 10_aide_hardware
+    * 31_aide_apt-cacher-ng
+    * 31_aide_bind9
+    * 31_aide_console-setup
+    * 31_aide_cups
+    * 31_aide_dehydrated
+    * 31_aide_dev
+    * 31_aide_dokuwiki
+    * 31_aide_fwupd
+    * 31_aide_gnupg
+    * 31_aide_icinga2
+    * 31_aide_lighttpd
+    * 31_aide_man
+    * 31_aide_mariadb
+    * 31_aide_run_systemd_netif
+    * 31_aide_samba
+    * 31_aide_schroot
+    * 31_aide_spamassassin
+    * 31_aide_ssh-server
+    * 31_aide_sudo
+    * 31_aide_systemd
+    * 31_aide_systemd_sessions
+    * 31_aide_torrus
+    * 31_aide_udev
+  * re-work postgreql rules
+
+ -- Marc Haber <mh+debian-packages@zugschlus.de>  Fri, 07 Nov 2025 21:33:42 +0100
+
+aide (0.19.1-2+deb13u1) trixie-security; urgency=high
+
+  * Apply upstream patch to escape control characters in report and log output
+    (CVE-2025-54389)
+  * Apply upstream patch to fix null pointer dereference after reading
+    incorrectly encoded xattr attributes from database (CVE-2025-54409)
+
+ -- Hannes von Haugwitz <hannes@vonhaugwitz.com>  Mon, 11 Aug 2025 10:07:47 +0200
+
 aide (0.19.1-2) unstable; urgency=medium
 
   * improve rules:

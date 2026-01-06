@@ -5,6 +5,7 @@
 
 /var/spool/cups(/tmp)?$ d VarDir
 !/var/spool/cups/c[[:digit:]]{5}$ f
+!/var/spool/cups/d[[:digit:]]{5}-001$ f
 !/var/spool/cups/tmp/cups-dbus-notifier-lockfile$ f
 !/var/spool/cups/tmp/foomatic-[[:alnum:]]{6}$ f
 

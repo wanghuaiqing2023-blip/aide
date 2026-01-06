@@ -30,7 +30,7 @@
  /@@{SAUPDATES}/10_(default_prefs|hasbase)\\.cf$ f VarFile
  /@@{SAUPDATES}/20_(advance_fee|aux_tlds|body_tests|compensate|dnsbl_tests|drugs|dynrdns|fake_helo_tests|freemail(|_domains|_mailcom_domains)|head_tests|html_tests|imageinfo|mailspike|meta_tests|net_tests|pdfinfo|phrases|porn|ratware|uri_tests|vbounce)\\.cf$ f VarFile
  /@@{SAUPDATES}/23_(bayes)\\.cf$ f VarFile
- /@@{SAUPDATES}/25_(accessdb|antivirus|asn|dcc|dkim|dmarc|dnswl|hashcash|pyzor|razor2|replace|spf|textcat|uribl|url_shortener)\\.cf$ f VarFile
+ /@@{SAUPDATES}/25_(accessdb|antivirus|asn|dcc|dkim|dmarc|dnswl|hashcash|pyzor|razor2|replace|spf|textcat|uribl|url_(redirectors|shortener))\\.cf$ f VarFile
  /@@{SAUPDATES}/30_(text_(de|fr|it|nl|pl|pt_br))\\.cf$ f VarFile
  /@@{SAUPDATES}/50_(scores)\\.cf$ f VarFile
  /@@{SAUPDATES}/60_(adsp_override_dkim|awl|bayes_stopwords|shortcircuit|txrep|whitelist(|_auth|_dkim|_spf|_subject)|welcomelist(_(auth|dkim|spf|subject))?)\\.cf$ f VarFile

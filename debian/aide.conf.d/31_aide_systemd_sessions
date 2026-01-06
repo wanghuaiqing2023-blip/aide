@@ -1,4 +1,12 @@
-/@@{RUN}/systemd/(sessions|transient|users)$ d VarDir
-!/@@{RUN}/systemd/sessions/[0-9]+(\\.ref)?$ p
-!/@@{RUN}/systemd/transient/session-[0-9]+\\.scope$ f
-!/@@{RUN}/systemd/users/[0-9]+$ f
+# not sure yet whether we need all users here that have services running
+# or whether only shell users
+@@if not defined SYSTEMD_UIDS
+@@define SYSTEMD_UIDS (@@{BITS_32_D})
+@@endif
+ /@@{RUN}/systemd/(machine|sessions|transient|users)$ d VarDir
+!/@@{RUN}/systemd/sessions/@@{SYSTEMD_UIDS}(\\.ref)?$ p
+!/@@{RUN}/systemd/transient/session-@@{SYSTEMD_UIDS}\\.scope$ f
+!/@@{RUN}/systemd/users/@@{SYSTEMD_UIDS}$ f
+!/@@{RUN}/systemd/io\\.systemd\\.(AskPassword|FactoryReset|Login|Manager)$ s
+!/@@{RUN}/systemd/machine/io\\.systemd\\.Machine(Image)?$ s
+!/@@{RUN}/user/@@{SYSTEMD_UIDS}/systemd/io\\.systemd\\.(AskPassword|Manager)$ s

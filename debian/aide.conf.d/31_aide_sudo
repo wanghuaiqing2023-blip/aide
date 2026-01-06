@@ -3,7 +3,8 @@
 @@endif
 
 @@define SUDO_STATE_DIR @@{RUN}/sudo
- /@@{SUDO_STATE_DIR}(/ts)?$ d RecreatedDir
+ /@@{SUDO_STATE_DIR}$ d RecreatedDir-n
+!/@@{SUDO_STATE_DIR}(/ts)?$ d
 !/@@{SUDO_STATE_DIR}/ts/@@{SUDO_ALLOWED_UIDS}$ f
 @@undef SUDO_STATE_DIR
 @@undef SUDO_ALLOWED_UIDS

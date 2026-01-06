@@ -23,11 +23,11 @@
 @@if not defined ACNGARCHS
 @@define ACNGARCHS (arm64|armhf|amd64|i386|all)
 @@endif
-@@if not defined ACNGDATENR
-@@define ACNGDATENR @@{DATE_YYYY_MM_DD_CURY}-@@{TIME_HHMM}\\.[[:digit:]]{2}
+@@if not defined ACNGYYYY_MM_DD_HHMM_XX
+@@define ACNGYYYY_MM_DD_HHMM_XX @@{DATE_YYYY_MM_DD_CURY}-@@{TIME_HHMM}\\.[[:digit:]]{2}
 @@endif
 @@if not defined ACNGDTNR
-@@define ACNGDTNR (@@{ACNGDATENR}|T-@@{ACNGDATENR}-F-@@{ACNGDATENR})
+@@define ACNGDTNR (@@{ACNGYYYY_MM_DD_HHMM_XX}|T-@@{ACNGYYYY_MM_DD_HHMM_XX}-F-@@{ACNGYYYY_MM_DD_HHMM_XX})
 @@endif
 
  /@@{ACNGCACHE}$ d VarDir-n
@@ -54,6 +54,7 @@
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/(source|(Contents|binary)-@@{ACNGARCHS}\\.diff)$ d
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/i18n$ d
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/(Contents-@@{ACNGARCHS}\\.[gx]z)(\\.head|~)?$ f
+!/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/(Contents-@@{ACNGARCHS}\\.[gx]z)(\\.head|~)?$ f
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/(debian-installer/)?binary-@@{ACNGARCHS}/(Packages(\\.(gz|bz2|xz))?)(\\.hea(d|%)|~)?$ f
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/dep11/(Components-@@{ACNGARCHS}\\.yml\\.xz|icons-(128x128|48x48|64x64)\\.tar\\.gz)(\\.head)?$ f
  /@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/i18n/Translation-(de|en)\\.diff$ d VarDir
@@ -62,10 +63,10 @@
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/i18n/Translation-(de|en)(\\.diff)?/Index(\\.head|~)?$ f
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/Contents-@@{ACNGARCHS}\\.diff/Index(~|\\.head)?$ f
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/binary-@@{ACNGARCHS}/Packages(\\.diff)?/Index(\\.head|~)?$ f
-!/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/binary-@@{ACNGARCHS}/Packages(\\.diff)?/@@{ACNRDTNR}\\.gz(\\.head)?$ f
+!/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/binary-@@{ACNGARCHS}/Packages(\\.diff)?/@@{ACNGDTNR}\\.gz(\\.head)?$ f
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/source/Sources\\.diff/Index(\\.head|~)?$ f
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/Contents-@@{ACNGARCHS}\\.diff(/by-hash)?$ d
-!/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/Contents-@@{ACNGARCHS}\\.diff/by-hash/SHA256$ d
+ /@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/Contents-@@{ACNGARCHS}\\.diff/by-hash/SHA256$ d VarDir
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/Contents-@@{ACNGARCHS}\\.diff/@@{ACNGDTNR}\\.gz(\\.head)?$ f
 !/@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/Contents-@@{ACNGARCHS}\\.diff/by-hash/SHA256/@@{SHA256SUM}(\\.head)?$ f
  /@@{ACNGCACHE}/@@{ACNGDISTS}/@@{ACNGMNC}/debian-installer$ d VarDir
@@ -108,7 +109,7 @@
 @@undef ACNGDISTS
 @@undef ACNGMNC
 @@undef ACNGARCHS
-@@undef ACNGDATENR
+@@undef ACNGYYYY_MM_DD_HHMM_XX
 @@undef ACNGDTNR
 @@undef ACNGLOGDIR
 @@undef ACNGLOGRE

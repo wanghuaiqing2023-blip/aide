@@ -10,8 +10,8 @@
 !/@@{DOKUWIKI_PATHRE}/locks/@@{MD5SUM}$ d
 !/@@{DOKUWIKI_PATHRE}/locks/@@{MD5SUM}\\.lock$ f
  /@@{DOKUWIKI_PATHRE}/log/error$ d VarDir
+ /@@{DOKUWIKI_PATHRE}/log/error/@@{DATE_YYYY_MM_DD}\\.log$ f VarFile+ANF+ARF
  /@@{DOKUWIKI_PATHRE}/log/pruned$ f VarFile
- /@@{DOKUWIKI_PATHRE}/log/error/@@{DATE_YYYYMMDD}\\.log$ f Full+ANF+ARF
  /@@{DOKUWIKI_PATHRE}/meta/(_(dokuwiki|media)\\.changes(\\.trimmed)?)$ f VarFile
 !/@@{DOKUWIKI_PATHRE}/meta/[[:alnum:]]+\\.(changes(\\.trimmed)?|indexed|meta)$ f
  /@@{DOKUWIKI_PATHRE}/meta/wiki/syntax\\.indexed$ f VarFile

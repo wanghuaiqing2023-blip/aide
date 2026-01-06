@@ -1,2 +1,3 @@
 /@@{RUN}/console-setup$ d RecreatedDir
 /@@{RUN}/console-setup/(boot_completed|font-loaded)$ f VarFile
+/etc/console-setup/cached_setup_(font|keyboard|terminal)\\.sh$ f VarFile

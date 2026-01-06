@@ -15,6 +15,18 @@ undefine() {
     printf "@@endif\n"
 }
 
+# TODO: parse DIR from configuration file
+DIR="/var/lib/aide"
+CACHEFILE="$DIR/10_aide_rootrules_cache"
+
+if [ "$EUID" != "0" ]; then
+    # we are not called from the buildcache job and are expected
+    # to spew what we have cached
+    if [ -r "$CACHEFILE" ]; then
+        cat "$CACHEFILE"
+    fi
+fi
+
 if command -v dmsetup >/dev/null; then
     if [ "$(dmsetup info --columns --options uuid --noheadings 2>/dev/null| grep -cvi 'no devices found')" != 0 ]; then
         undefine DM_UUIDS_W_P

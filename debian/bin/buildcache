@@ -29,7 +29,9 @@ set -C
 
 #!/bin/sh
 
+# TODO: parse DIR from configuration file
 DIR="/var/lib/aide"
+AIDEUSER="_aide"
 mkdir -p "$DIR"
 TEMPFILE=$(mktemp "$DIR/tmp.XXXXXX")
 CACHEFILE="$DIR/10_aide_rootrules_cache"
@@ -44,6 +46,7 @@ if [ ! -f "${CACHEFILE}" ] || ! cmp -s "${TEMPFILE}" "${CACHEFILE}"; then
     mv "${TEMPFILE}" "${CACHEFILE}"
 fi
 rm -f "${TEMPFILE}"
+chown "${AIDEUSER}" "${CACHEFILE}"
 
 # vim: tabstop=4 shiftwidth=4 expandtab
 # end of file

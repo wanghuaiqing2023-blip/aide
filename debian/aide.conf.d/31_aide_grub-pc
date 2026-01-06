@@ -1,0 +1,3 @@
+@@if defined AMD64_FIRMWARE_BIOS
+ /boot/grub/grubenv$ f VarFile
+@@endif

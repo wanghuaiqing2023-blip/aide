@@ -29,7 +29,10 @@ printf " /var/lib/torrus/db/render_cache\\.db$ f VarFile\\n"
 printf "!/var/lib/torrus/session_data/store/[0-9a-f]{32}$ f\\n"
 printf "!/var/lib/torrus/session_data/lock/Apache-Session-[0-9a-f]{32}\\.lock$ f\\n"
 printf " /var/lib/torrus/session_data/(store|lock)$ d VarDir\\n"
-printf "!/var/log/torrus/dbenv_errlog_%d$ f\\n" "$(pidof collector)"
+CPID="$(pidof collector)"
+if [ "${CPID}" ]; then
+  printf "!/var/log/torrus/dbenv_errlog_%d$ f\\n" "$(pidof collector)"
+fi
 printf " /var/log/torrus$ d VarDir\\n"
 printf " /@@{RUN}/torrus$ d RecreatedDir\\n"
 

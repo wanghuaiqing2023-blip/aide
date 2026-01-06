@@ -1,0 +1,3 @@
+ /var/lib/systemd/timers/stamp-xfs_scrub_all\\.timer$ f VarFile
+ /var/lib/xfsprogs/xfs_scrub_all_media\\.stamp$ f VarFile
+

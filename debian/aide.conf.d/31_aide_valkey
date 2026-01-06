@@ -1,0 +1,23 @@
+/var/lib/valkey$ d VarDir
+/var/lib/valkey/dump\\.rdb$ f VarFile
+
+@@if not defined VALKEY_DATADIRRE
+@@define VALKEY_DATADIRRE valkey
+@@endif
+@@if not defined VALKEY_LOGDIR
+@@define VALKEY_LOGDIR var/log/valkey
+@@endif
+@@if not defined VALKEY_LOGFILERE
+@@define VALKEY_LOGFILERE valkey-server\\.log
+@@endif
+/@@{VALKEY_LOGDIR}$ d VarDir
+/@@{VALKEY_LOGDIR}/@@{VALKEY_LOGFILERE}$ f ActLog
+/@@{VALKEY_LOGDIR}/@@{VALKEY_LOGFILERE}\\.1$ f RotLog
+/@@{VALKEY_LOGDIR}/@@{VALKEY_LOGFILERE}\\.2\\.@@{LOGEXT}$ f CompSerLog
+/@@{VALKEY_LOGDIR}/@@{VALKEY_LOGFILERE}\\.(1[01]|[3456789])\\.@@{LOGEXT}$ f MidlSerLog
+/@@{VALKEY_LOGDIR}/@@{VALKEY_LOGFILERE}\\.12\\.@@{LOGEXT}$ f LastSerLog
+/var/lib/@@{VALKEY_DATADIRRE}$ d VarDir
+/var/lib/@@{VALKEY_DATADIRRE}/dump\\.rdb$ f VarFile
+@@undef VALKEY_LOGDIR
+@@undef VALKEY_LOGFILERE
+@@undef VALKEY_DATADIRRE

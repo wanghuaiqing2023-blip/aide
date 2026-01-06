@@ -9,7 +9,8 @@ FORMATS="%Y%m%d %y%m%d %Y-%m-%d %y-%m-%d"
 DATES="now 1_day_ago 2_days_ago"
 
 while read -r var format dt; do
-    printf "@@define DATE_%s %s\\n" "${var}" "$(date +"${format}" --date="${dt}")"
+    dt="${dt# }"  # optional, trim leading space
+    printf "@@define DATE_%s %s\n" "${var}" "$(date +"${format}" --date="${dt}")"
 done <<EOLIST
 YYYYMMDDTODAY %Y%m%d now
 YYYYMMDDYESTR %Y%m%d 1 day ago
@@ -30,3 +31,9 @@ USCORED_YYMMDDTODAY %y_%m_%d now
 USCORED_YYMMDDYESTR %y_%m_%d 1 day ago
 USCORED_YYMMDDDBFYS %y_%m_%d 2 days ago
 EOLIST
+
+for days in 7 30 90; do
+  DAYS="($(for i in $(seq 0 $days); do date --iso-8601 --date "$i days ago"; done | paste --serial --delimiter='|'))"
+  printf "@@define DATETIME_ISO8601_LAST_%s_DAYS_COLONTIME %sT@@{TIME_0_23}:@@{TIME_0_59}:@@{TIME_0_59}(Z|[+-]@@{TIME_0_23}:@@{TIME_0_59})\n" "${days}" "${DAYS}"
+  printf "@@define DATETIME_ISO8601_LAST_%s_DAYS_DASHTIME %sT@@{TIME_0_23}-@@{TIME_0_59}-@@{TIME_0_59}(Z|[+-]@@{TIME_0_23}@@{TIME_0_59})\n" "${days}" "${DAYS}"
+done

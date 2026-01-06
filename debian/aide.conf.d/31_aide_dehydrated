@@ -3,15 +3,16 @@
 
 @@if defined DEHYDDOMAINS
 @@define DEHYDRE (cert|chain|combined|fullchain|privkey)
-/var/lib/dehydrated$ d VarDir
-/var/lib/dehydrated/accounts/@@{BASE64}+$ d VarDir
-/var/lib/dehydrated/accounts/@@{BASE64}+/account_id\\.json$ f VarFile
-/var/lib/dehydrated/chains$ d VarDir
-/var/lib/dehydrated/certs/@@{DEHYDDOMAINS}$ d VarDir
-!/var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/@@{DEHYDRE}-@@{UNIX_TS_CURY}\\.pem$ f
+ /var/lib/dehydrated$ d VarDir
+ /var/lib/dehydrated/accounts/@@{BASE64}+$ d VarDir
+ /var/lib/dehydrated/accounts/@@{BASE64}+/account_id\\.json$ f VarFile
+ /var/lib/dehydrated/chains$ d VarDir
+ /var/lib/dehydrated/certs/@@{DEHYDDOMAINS}$ d VarDir
+!/var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/@@{DEHYDRE}-@@{UNIX_TS_2015_2033}\\.pem$ f
 !/var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/@@{DEHYDRE}\\.pem$ l
 !/var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/combined\\.pem$ f
-!/var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/(cert)-@@{UNIX_TS_CURY}\\.csr$ f
+ /var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/(cert)-@@{UNIX_TS_2015_2033}\\.(csr)$ f Full-c+ANF
+ /var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/(cert|chain|fullchain|privkey)-@@{UNIX_TS_2015_2033}\\.(pem)$ f Full-c+ANF
 !/var/lib/dehydrated/certs/@@{DEHYDDOMAINS}/(cert)\\.csr$ l
-/var/lib/dehydrated(/acme-challenges)?$ d VarDir
+ /var/lib/dehydrated(/acme-challenges)?$ d VarDir
 @@endif

@@ -1,19 +1,30 @@
 !/dev/shm/PostgreSQL\\.[[:digit:]]+$ f
 
-# this is going to move to 31_aide_postgresql after trixie
-@@define PG_VERS (15)
-@@define PG_MCL @@{PG_VERS}/main
+@@if not defined PG_VERS
+@@define PG_VERS (17)
+@@endif
+@@if not defined PG_PORTS
+@@define PG_PORTS (5432)
+@@endif
+@@if not defined PG_CLUSTERS
+@@define PG_CLUSTERS (main)
+@@endif
+@@define PG_MCL @@{PG_VERS}/@@{PG_CLUSTERS}
 @@define RUNPG @@{RUN}/postgresql
 @@define VLPG var/lib/postgresql
+@@if not defined PG_DBOIDS
+@@define PG_DBOIDS (1|5)
+@@endif
+
 
  /@@{RUNPG}$ d RecreatedDir
-!/@@{RUNPG}/\\.s\\.PGSQL\\.5432$ s
-!/@@{RUNPG}/\\.s\\.PGSQL\\.5432\\.lock$ f
- /@@{RUNPG}/@@{PG_VERS}-main\\.pg_stat_tmp$ d RecreatedDir
- /@@{RUNPG}/@@{PG_VERS}-main\\.pid$ f PidFile
-!/@@{RUNPG}/@@{PG_VERS}-main\\.pg_stat_tmp/(db_[[:digit:]]+|global)\\.stat$ f
+!/@@{RUNPG}/\\.s\\.PGSQL\\.@@{PG_PORTS}$ s
+!/@@{RUNPG}/\\.s\\.PGSQL\\.@@{PG_PORTS}\\.lock$ f
+ /@@{RUNPG}/@@{PG_VERS}-@@{PG_CLUSTERS}\\.pg_stat_tmp$ d RecreatedDir
+ /@@{RUNPG}/@@{PG_VERS}-@@{PG_CLUSTERS}\\.pid$ f PidFile
+!/@@{RUNPG}/@@{PG_VERS}-@@{PG_CLUSTERS}\\.pg_stat_tmp/(db_[[:digit:]]+|global)\\.stat$ f
 
- /@@{VLPG}/@@{PG_MCL}(/base(/(1|[[:digit:]]{5,6}))?)?$ d VarDir
+ /@@{VLPG}/@@{PG_MCL}(pg_stat|/base(/(@@{PG_DBOIDS}|[[:digit:]]{5,6}))?)?$ d VarDir
 !/@@{VLPG}/@@{PG_MCL}/base/[[:digit:]]{5,6}/[[:digit:]]{4,6}(_(fsm|vm))?$ f
  /@@{VLPG}/@@{PG_MCL}/(global|pg_(logical|subtrans|wal|xact))$ d VarDir
  /@@{VLPG}/@@{PG_MCL}/global/pg_control$ f VarFile
@@ -27,7 +38,7 @@
 !/@@{VLPG}/@@{PG_MCL}/pg_wal/[[:xdigit:]]{24}$ f
 
 @@define POSTGRES_LOGDIR var/log/postgresql
-@@define POSTGRES_LOGFILES postgresql-@@{PG_VERS}-main\\.log
+@@define POSTGRES_LOGFILES postgresql-@@{PG_VERS}-@@{PG_CLUSTERS}\\.log
 /@@{POSTGRES_LOGDIR}$ d                                             LogDir
 /@@{POSTGRES_LOGDIR}/@@{POSTGRES_LOGFILES}$ f                       VarFile
 /@@{POSTGRES_LOGDIR}/@@{POSTGRES_LOGFILES}\\.1$ f                   RotLog+ANF
@@ -36,6 +47,8 @@
 /@@{POSTGRES_LOGDIR}/@@{POSTGRES_LOGFILES}\\.10\\.@@{LOGEXT}$ f     LastSerLog
 
 @@undef PG_VERS
+@@undef PG_PORTS
+@@undef PG_CLUSTERS
 @@undef PG_MCL
 @@undef RUNPG
 @@undef VLPG
